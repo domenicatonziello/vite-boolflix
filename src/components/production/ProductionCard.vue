@@ -32,17 +32,14 @@ export default {
         }
     },
     methods: {
-        getChangeActive() {
-            this.active = !this.active;
-        }
     }
 }
 </script>
 
 <template>
     <div class="card">
-        <img @mouseover="getChangeActive" @mouseleave="getChangeActive" :src="imageUrl" :alt="title">
-        <ul v-show="active">
+        <img :src="imageUrl" :alt="title">
+        <ul>
             <li>
                 <h3>{{ title }}</h3>
             </li>
@@ -52,6 +49,13 @@ export default {
                 <div v-else>{{ language }}</div>
             </li>
             <li> {{ roundedVote }}</li>
+            <li>
+                <font-awesome-icon icon="fa-solid fa-star" class="favourite" />
+                <font-awesome-icon icon="fa-solid fa-star" />
+                <font-awesome-icon icon="fa-solid fa-star" />
+                <font-awesome-icon icon="fa-solid fa-star" />
+                <font-awesome-icon icon="fa-solid fa-star" />
+            </li>
         </ul>
     </div>
 </template>
@@ -65,7 +69,9 @@ export default {
     position: relative;
 
     ul {
+        display: none;
         list-style-type: none;
+
         position: absolute;
         top: 0;
         bottom: 0;
@@ -76,6 +82,19 @@ export default {
         img {
             width: 25px;
         }
+
+        .fa-star {
+            color: lightgrey;
+        }
+
+        .favourite {
+            color: yellow;
+        }
+
     }
+}
+
+.card:hover ul {
+    display: block;
 }
 </style>
