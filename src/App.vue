@@ -2,10 +2,10 @@
 import axios from 'axios';
 import { apiKey, baseUri } from './data';
 import { store } from './data/store.js';
-import AppCard from './components/AppCard.vue';
+import ProductionCard from './components/production/ProductionCard.vue';
 import SearchBar from './components/SearchBar.vue';
 export default {
-  components: { SearchBar, AppCard },
+  components: { SearchBar, ProductionCard },
   data() {
     return {
       store,
@@ -45,19 +45,21 @@ export default {
     <!-- movie -->
     <h1 v-if="store.movieList.length"> Movie </h1>
     <div class="row">
-      <app-card v-for="movie in store.movieList" :key="movie.id" :title="movie.title"
-        :subtitle="movie['original_title']" :language="movie['original_language']"
-        :voto="movie['vote_average']"></app-card>
+      <production-card v-for="movie in store.movieList" :key="movie.id" :title="movie.title"
+        :subtitle="movie['original_title']" :language="movie['original_language']" :voto="movie['vote_average']"
+        :image="movie['poster_path']"></production-card>
     </div>
     <!-- serie -->
     <h1 v-if="store.serieList.length"> Serie TV </h1>
     <div class="row">
-      <app-card v-for="serie in store.serieList" :key="serie.id" :title="serie.name" :subtitle="serie['original_name']"
-        :language="serie['original_language']" :voto="serie['vote_average']"></app-card>
+      <production-card v-for="serie in store.serieList" :key="serie.id" :title="serie.name"
+        :subtitle="serie['original_name']" :language="serie['original_language']" :voto="serie['vote_average']"
+        :image="serie['poster_path']">
+      </production-card>
     </div>
   </main>
 </template>
-
-<style lang="scss">
+      
+<style lang ="scss">
 @use './assets/scss/style.scss';
 </style>

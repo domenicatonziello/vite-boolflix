@@ -1,37 +1,48 @@
 <script>
+import { baseImg } from '../../data';
 export default {
-    name: 'AppCard',
+    name: 'ProductionCard',
     data() {
         return {
             imageName: ['en', 'it'],
+            active: false,
         }
     },
     props: {
         title: String,
         subtitle: String,
         language: String,
-        voto: Number
+        voto: Number,
+        image: String
     },
     computed: {
         roundedVote() {
-            const roundedVote = Math.ceil(this.voto);
+            const roundedVote = Math.ceil(this.voto / 2);
             return roundedVote;
         },
         hasFlag() {
             return this.imageName.includes(this.language);
         },
         flagSrc() {
-            const url = new URL(`../assets/flags/${this.language}.png`, import.meta.url);
+            const url = new URL(`../../assets/flags/${this.language}.png`, import.meta.url);
             return url.href;
+        },
+        imageUrl() {
+            return `${baseImg}w342${this.image}`;
         }
-
+    },
+    methods: {
+        getChangeActive() {
+            this.active = !this.active;
+        }
     }
 }
 </script>
 
 <template>
     <div class="card">
-        <ul>
+        <img @mouseover="getChangeActive" @mouseleave="getChangeActive" :src="imageUrl" :alt="title">
+        <ul v-show="active">
             <li>
                 <h3>{{ title }}</h3>
             </li>
