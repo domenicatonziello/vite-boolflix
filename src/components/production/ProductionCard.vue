@@ -61,10 +61,17 @@ export default {
     min-height: 100px;
     flex-basis: calc(100% / 4 - 90px);
     margin: 10px;
-    background-color: dodgerblue;
+
+    position: relative;
 
     ul {
         list-style-type: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba($color: #4b4b4b81, $alpha: .5);
 
         img {
             width: 25px;
