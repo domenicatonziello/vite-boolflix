@@ -14,10 +14,10 @@ export default {
 </script>
 
 <template>
-    <div>
+    <form @submit.prevent="$emit('search-term', term)">
         <input type="text" v-model="term">
-        <button type="button" @click="$emit('search-term', term)"> {{ label || 'Cerca' }} </button>
-    </div>
+        <button type="submit"> {{ label || 'Cerca' }} </button>
+    </form>
 </template>
 
 

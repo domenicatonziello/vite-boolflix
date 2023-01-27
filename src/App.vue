@@ -8,17 +8,27 @@ export default {
   components: { SearchBar, AppCard },
   data() {
     return {
-      store
+      store,
+      query: '',
     }
   },
   methods: {
-    filterMovies(term) {
-      store.query = term;
-      axios.get(`${baseUri}?api_key=${apiKey}&query=${store.query}`)
+    fetchApi(endpoint, collection) {
+      const axiosUrl = {
+        params: {
+          api_key: apiKey,
+          query: this.query,
+        }
+      }
+      axios.get(`${baseUri}/${endpoint}`, axiosUrl)
         .then(res => {
-          const movies = res.data.results;
-          return store.movieList = movies;
+          return store[collection] = res.data.results;
         })
+    },
+    searchProduction(term) {
+      this.query = term;
+      this.fetchApi('search/movie/', 'movieList');
+      this.fetchApi('search/tv/', 'serieList');
     }
   }
 }
@@ -28,15 +38,22 @@ export default {
   <header>
     <div class="container">
       <h1> BOOLFLIX </h1>
-      <search-bar @search-term="filterMovies"></search-bar>
+      <search-bar @search-term="searchProduction"></search-bar>
     </div>
   </header>
   <main class="container">
-    <h1> Movie </h1>
+    <!-- movie -->
+    <h1 v-if="store.movieList.length"> Movie </h1>
     <div class="row">
-      <app-card v-if="store.movieList.length" v-for="movie in store.movieList" :key="movie.id" :title="movie.title"
+      <app-card v-for="movie in store.movieList" :key="movie.id" :title="movie.title"
         :subtitle="movie['original_title']" :language="movie['original_language']"
         :voto="movie['vote_average']"></app-card>
+    </div>
+    <!-- serie -->
+    <h1 v-if="store.serieList.length"> Serie TV </h1>
+    <div class="row">
+      <app-card v-for="serie in store.serieList" :key="serie.id" :title="serie.name" :subtitle="serie['original_name']"
+        :language="serie['original_language']" :voto="serie['vote_average']"></app-card>
     </div>
   </main>
 </template>

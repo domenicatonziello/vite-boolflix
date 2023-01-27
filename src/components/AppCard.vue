@@ -3,7 +3,7 @@ export default {
     name: 'AppCard',
     data() {
         return {
-            imageName: ['en.png', 'it.png'],
+            imageName: ['en', 'it'],
         }
     },
     props: {
@@ -17,15 +17,14 @@ export default {
             const roundedVote = Math.ceil(this.voto);
             return roundedVote;
         },
-        languageFlag() {
-            return `${this.language}.png`;
+        hasFlag() {
+            return this.imageName.includes(this.language);
+        },
+        flagSrc() {
+            const url = new URL(`../assets/flags/${this.language}.png`, import.meta.url);
+            return url.href;
         }
-    },
-    methods: {
-        buildImagePath(img) {
-            const url = new URL(`../assets/flags/${img}`, import.meta.url);
-            return console.log(url.href);
-        }
+
     }
 }
 </script>
@@ -37,7 +36,10 @@ export default {
                 <h3>{{ title }}</h3>
             </li>
             <li v-if="title !== subtitle"> {{ subtitle }} </li>
-            <li> <img :src="buildImagePath(languageFlag)" :alt="language"> </li>
+            <li>
+                <img v-if="hasFlag" :src="flagSrc" :alt="language">
+                <div v-else>{{ language }}</div>
+            </li>
             <li> {{ roundedVote }}</li>
         </ul>
     </div>
@@ -52,6 +54,10 @@ export default {
 
     ul {
         list-style-type: none;
+
+        img {
+            width: 25px;
+        }
     }
 }
 </style>
