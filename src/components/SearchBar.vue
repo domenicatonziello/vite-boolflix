@@ -22,5 +22,12 @@ export default {
 
 
 <style scoped lang="scss">
+button {
+    padding: 10px;
+    margin-left: 5px;
+}
 
+input {
+    padding: 8px;
+}
 </style>

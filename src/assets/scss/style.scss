@@ -13,6 +13,7 @@ body {
 header {
     height: 100px;
     background-color: black;
+    margin-bottom: 30px;
 
     .container {
         height: 100%;
@@ -21,6 +22,17 @@ header {
         align-items: center;
     }
 
+    h1 {
+        color: red;
+        font-weight: bold;
+    }
+
+}
+
+button {
+    padding: 5px;
+    background-color: red;
+    color: white;
 }
 
 // utility
@@ -32,4 +44,6 @@ header {
 .row {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 -10px;
+    margin-bottom: 30px;
 }
