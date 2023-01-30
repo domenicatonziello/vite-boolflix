@@ -29,9 +29,12 @@ export default {
         },
         imageUrl() {
             return `${baseImg}w342${this.image}`;
-        }
+        },
     },
     methods: {
+        setStarClass(n) {
+            return n <= this.roundedVote ? "favourite" : '';
+        }
     }
 }
 </script>
@@ -48,13 +51,8 @@ export default {
                 <img v-if="hasFlag" :src="flagSrc" :alt="language">
                 <div v-else>{{ language }}</div>
             </li>
-            <li> {{ roundedVote }}</li>
             <li>
-                <font-awesome-icon icon="fa-solid fa-star" class="favourite" />
-                <font-awesome-icon icon="fa-solid fa-star" />
-                <font-awesome-icon icon="fa-solid fa-star" />
-                <font-awesome-icon icon="fa-solid fa-star" />
-                <font-awesome-icon icon="fa-solid fa-star" />
+                <font-awesome-icon v-for="n in 5" icon="fa-star fa-solid" :class="setStarClass(n)" />
             </li>
         </ul>
     </div>
